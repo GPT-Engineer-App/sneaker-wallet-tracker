@@ -7,12 +7,14 @@ import { Label } from "@/components/ui/label"
 
 const TransactionForm = ({ onSubmit, onCancel, initialData }) => {
   const { register, handleSubmit, setValue, watch } = useForm({
-    defaultValues: initialData || {
-      date: new Date().toISOString().split('T')[0],
-      amount: '',
-      type: 'expense',
-      category: '',
-    },
+    defaultValues: initialData 
+      ? { ...initialData, amount: parseFloat(initialData.amount) }
+      : {
+          date: new Date().toISOString().split('T')[0],
+          amount: '',
+          type: 'expense',
+          category: '',
+        },
   });
 
   React.useEffect(() => {
@@ -34,7 +36,15 @@ const TransactionForm = ({ onSubmit, onCancel, initialData }) => {
       
       <div>
         <Label htmlFor="amount">Amount</Label>
-        <Input type="number" id="amount" {...register('amount', { required: true, min: 0 })} />
+        <Input 
+  type="number" 
+  id="amount" 
+  {...register('amount', { 
+    required: true, 
+    min: 0,
+    valueAsNumber: true 
+  })} 
+/>
       </div>
       
       <div>

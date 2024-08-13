@@ -21,7 +21,7 @@ const TransactionList = ({ transactions, onEdit, onDelete }) => {
           {transactions.map((transaction) => (
             <TableRow key={transaction.id}>
               <TableCell>{transaction.date}</TableCell>
-              <TableCell>${transaction.amount.toFixed(2)}</TableCell>
+              <TableCell>${parseFloat(transaction.amount).toFixed(2)}</TableCell>
               <TableCell className={transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}>
                 {transaction.type}
               </TableCell>

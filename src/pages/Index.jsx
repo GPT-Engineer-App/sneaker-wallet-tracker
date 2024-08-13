@@ -28,7 +28,11 @@ const Index = () => {
   const addTransaction = useMutation({
     mutationFn: (newTransaction) => {
       // Simulated API call
-      return Promise.resolve({ ...newTransaction, id: Date.now() });
+      return Promise.resolve({ 
+        ...newTransaction, 
+        id: Date.now(),
+        amount: parseFloat(newTransaction.amount)
+      });
     },
     onSuccess: (data) => {
       queryClient.setQueryData(['transactions'], (old) => [...old, data]);
@@ -39,7 +43,10 @@ const Index = () => {
   const updateTransaction = useMutation({
     mutationFn: (updatedTransaction) => {
       // Simulated API call
-      return Promise.resolve(updatedTransaction);
+      return Promise.resolve({
+        ...updatedTransaction,
+        amount: parseFloat(updatedTransaction.amount)
+      });
     },
     onSuccess: (data) => {
       queryClient.setQueryData(['transactions'], (old) =>
